@@ -11,20 +11,6 @@ player_stats = ["G", "A", "+/-", "PIM", "SOG", "FW", "HIT"]
 weights_series = pd.Series([2, 1.75, .5, .5, .5, .3, .5], index=player_stats)
 roster_makeup = pd.Index("C,C,LW,LW,RW,RW,D,D,D,D".split(",")).value_counts()
 
-
-def make_best_roster(x, roster_df, full_position_set, roster_makeup):
-    elig_position = x['eligible_positions']
-    for posn in elig_position:
-        try:
-            if roster_df.today_roster_position.value_counts()[posn] < roster_makeup[posn]:
-                return posn
-            else:
-                # try to make room
-                pass
-        except KeyError:
-            return posn
-    return 'C'
-
 class TestRoster(TestCase):
 
     # simple test which has 2 centres(C), and one player that be slotted into C,RW.
